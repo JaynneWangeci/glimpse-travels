@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
@@ -20,13 +20,13 @@ const TripSchema = Yup.object().shape({
 
 function TripForm({ user }) {
   const { id } = useParams();
-  const navigate = useNavigate();
+  const history = useHistory();
   const [initialValues, setInitialValues] = useState(null);
 
    useEffect(() => {
     // Redirect if user is not logged in and is trying to create a new trip
     if (!user && !id) {
-      navigate('/login');
+      history.push('/login');
     }
     if (id) {
       fetch(`/trips/${id}`)
@@ -73,7 +73,7 @@ function TripForm({ user }) {
           })
           .then(data => {
             setSubmitting(false);
-            navigate(`/trips/${data.id}`);
+            history.push(`/trips/${data.id}`);
           })
           .catch(error => {
             setSubmitting(false);

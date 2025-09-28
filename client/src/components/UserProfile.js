@@ -1,17 +1,17 @@
 // client/src/components/UserProfile.js
 
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 function UserProfile({ user }) {
-  const navigate = useNavigate();
+  const history = useHistory();
 
   // If the user is not logged in, redirect them to the login page
   useEffect(() => {
     if (!user) {
-      navigate('/login');
+      history.push('/login');
     }
-  }, [user, navigate]);
+  }, [user, history]);
 
   // Render a message if user data is still being fetched or not available
   if (!user) {

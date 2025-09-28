@@ -1,14 +1,14 @@
 // client/src/components/TripDetail.js
 
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import Photo from './Photo';
 import TripFollowers from './TripFollowers';
 
 function TripDetail({ user }) {
   const [trip, setTrip] = useState(null);
   const { id } = useParams();
-  const navigate = useNavigate();
+  const history = useHistory();
 
   useEffect(() => {
     fetch(`/trips/${id}`)
@@ -28,7 +28,7 @@ function TripDetail({ user }) {
     })
       .then(res => {
         if (res.ok) {
-          navigate('/trips');
+          history.push('/trips');
         } else {
           // You could also show an error message to the user here
           console.error('Failed to delete trip. You might not have permission.');

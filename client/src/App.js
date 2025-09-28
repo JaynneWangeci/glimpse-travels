@@ -1,7 +1,7 @@
 // client/src/App.js
 
 import React, { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
 import TripList from './components/TripList';
@@ -35,20 +35,22 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <NavBar user={user} onLogout={onLogout} />
-      <main>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/trips" element={<TripList />} />
-        <Route path="/trips/:id" element={<TripDetail />} />
-        <Route path="/trips/new" element={<TripForm user={user} />} />
-        <Route path="/profile" element={<UserProfile user={user} />} />
-        <Route path="/login" element={<Login onLogin={onLogin} />} />
-        <Route path="/signup" element={<Signup onLogin={onLogin} />} />
-      </Routes>
-      </main>
-    </div>
+    <Router>
+      <div className="App">
+        <NavBar user={user} onLogout={onLogout} />
+        <main>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/trips" component={TripList} />
+            <Route path="/trips/new" render={() => <TripForm user={user} />} />
+            <Route path="/trips/:id" component={TripDetail} />
+            <Route path="/profile" render={() => <UserProfile user={user} />} />
+            <Route path="/login" render={() => <Login onLogin={onLogin} />} />
+            <Route path="/signup" render={() => <Signup onLogin={onLogin} />} />
+          </Switch>
+        </main>
+      </div>
+    </Router>
   );
 }
 

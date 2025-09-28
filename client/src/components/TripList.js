@@ -16,18 +16,14 @@ function TripList() {
       .catch(error => console.error('Error fetching trips:', error));
   }, []); // Empty dependency array ensures this runs only once
 
-  // ... rendering logic will go here
+  return (
+    <div className="trip-list">
+      <h1>All Trips</h1>
+      {trips.map(trip => (
+        <TripCard key={trip.id} trip={trip} />
+      ))}
+    </div>
+  );
 }
-
-// Render the Data
-
-return (
-  <div className="trip-list">
-    <h1>All Trips</h1>
-    {trips.map(trip => (
-      <TripCard key={trip.id} trip={trip} />
-    ))}
-  </div>
-);
 
 export default TripList;

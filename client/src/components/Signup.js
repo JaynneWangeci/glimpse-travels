@@ -3,7 +3,7 @@
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const SignupSchema = Yup.object().shape({
   username: Yup.string().required('Required'),
@@ -11,7 +11,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 function Signup({ onLogin }) {
-  const navigate = useNavigate();
+  const history = useHistory();
 
   return (
     <Formik
@@ -31,7 +31,7 @@ function Signup({ onLogin }) {
           })
           .then(user => {
             onLogin(user); // Callback to set user in App.js state
-            navigate('/profile');
+            history.push('/profile');
           })
           .catch(error => {
             console.error('Signup error:', error);
